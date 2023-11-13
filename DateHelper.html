@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Date helper - Home</title>
+    <link rel="icon" type="image/x-icon" href="./clock.ico">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0px;
+            box-sizing: border-box;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: lightblue !important;
+        }
+
+        footer {
+            margin-top: auto;
+        }
+
+        .my-header {
+            background-color: #312E2E;
+            height: 75px;
+        }
+    </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="my-header">
+        <h1 class="text-white text-center mt-2" style="vertical-align: middle; align-items:center;margin: auto;">Date
+            Helper
+        </h1>
+    </div>
+
+    <div class="container mt-5 mb-5">
+
+        <div class="row mt-5">
+            <h2 data-bs-toggle="collapse" href="#collapseOne" role="button" aria-expanded="true"
+                aria-controls="collapseOne">Missing days</h2>
+            <div class="row collapse show" id="collapseOne">
+                <div class="col-12">
+                    <p class="font-weight-bold"><strong>Date start</strong></p>
+                    <div class="row">
+                        <div class="col-2">
+                            <input id="year_start" class="form-control col" placeholder="Year.." type="text">
+                        </div>
+                        <div class="col-2">
+                            <input id="month_start" class="form-control col" placeholder="Month.." type="number">
+                        </div>
+                        <div class="col-2">
+                            <input id="day_start" class="form-control col" placeholder="Day.." type="number">
+                        </div>
+                        <div class="col-2">
+                            <input id="hour_start" class="form-control col" placeholder="Hour.." type="number">
+                        </div>
+                        <div class="col-2">
+                            <input id="minute_start" class="form-control col" placeholder="Minutes.." type="number">
+                        </div>
+                        <div class="col-2">
+                            <input id="second_start" class="form-control col" placeholder="Seconds.." type="number">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-2">
+                    <p class="font-weight-bold"><strong>Date end</strong></p>
+                    <div class="row">
+                        <div class="col-2">
+                            <input id="year_end" class="form-control col" placeholder="Year.." type="number">
+                        </div>
+                        <div class="col-2">
+                            <input id="month_end" class="form-control col" placeholder="Month.." type="number">
+                        </div>
+                        <div class="col-2">
+                            <input id="day_end" class="form-control col" placeholder="Day.." type="number">
+                        </div>
+                        <div class="col-2">
+                            <input id="hour_end" class="form-control col" placeholder="Hours.." type="number">
+                        </div>
+                        <div class="col-2">
+                            <input id="minute_end" class="form-control col" placeholder="Minutes.." type="number">
+                        </div>
+                        <div class="col-2">
+                            <input id="second_end" class="form-control col" placeholder="Seconds.." type="number">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 mt-3">
+                        <button class="btn btn-warning" onclick="setToday()">Set today</button>
+                        <button class="btn btn-success" onclick="calculateDiff()">Calculare diff</button>
+                        <button class="btn btn-danger" onclick="clearDiff()">Clear</button>
+                    </div>
+                    <div class="col-4 mt-3">
+                        <p id="missing_days"></p>
+                        <p id="not_working_days"></p>
+                        <p id="working_days"></p>
+                        <p id="missing_seconds"></p>
+                        <p id="missing_hours"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <h2 data-bs-toggle="collapse" href="#collapseTwo" role="button" aria-expanded="true"
+                aria-controls="collapseTwo">Date to epoch converter</h2>
+            <div class="row collapse" id="collapseTwo">
+                <div class="col-12">
+                    <p class="font-weight-bold"><strong>Date</strong></p>
+                    <div class="row">
+                        <div class="col-2">
+                            <input id="epoch_year" class="form-control col" placeholder="Year.." type="number">
+                        </div>
+                        <div class="col-2">
+                            <input id="epoch_month" class="form-control col" placeholder="Month.." type="number">
+                        </div>
+                        <div class="col-2">
+                            <input id="epoch_day" class="form-control col" placeholder="Day.." type="number">
+                        </div>
+                        <div class="col-2">
+                            <input id="epoch_hour" class="form-control col" placeholder="Hours.." type="number">
+                        </div>
+                        <div class="col-2">
+                            <input id="epoch_minute" class="form-control col" placeholder="Minutes.." type="number">
+                        </div>
+                        <div class="col-2">
+                            <input id="epoch_second" class="form-control col" placeholder="Seconds.." type="number">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 mt-3">
+                        <button class="btn btn-warning" onclick="setEpochToday()">Set today</button>
+                        <button class="btn btn-success" onclick="calculateEpoch()">Convert</button>
+                        <button class="btn btn-danger" onclick="clearDateToEpoch()">Clear</button>
+                    </div>
+                    <div class="col-4 mt-3">
+                        <p id="epoch_result"></p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row mt-4">
+            <h2 data-bs-toggle="collapse" href="#collapseThree" role="button" aria-expanded="true"
+                aria-controls="collapseThree">Epochs to date converter</h2>
+
+            <div class="row collapse" id="collapseThree">
+                <div class="col-12">
+                    <p class="font-weight-bold"><strong>Epoch</strong></p>
+                    <div class="row">
+                        <div class="col-3">
+                            <input id="epoch_date" class="form-control col" placeholder="Epochs.." type="number">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8 mt-3">
+                        <button class="btn btn-warning" onclick="setEpochDateNow()">Set now as epoch</button>
+                        <button class="btn btn-secondary" onclick="setEpochDateToday()">Set today as epoch</button>
+                        <button class="btn btn-success" onclick="calculateEpochToDate()">Convert</button>
+                        <button class="btn btn-danger" onclick="clearEpochToDate()">Clear</button>
+                    </div>
+                    <div class="col-4 mt-3">
+                        <p id="epoch_to_date_result"></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="text-center text-white">
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: #312E2E;">
+            <p id="footer-copyright"></p>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/f5de211172.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            let date = new Date();
+            $('#footer-copyright').html('Andrea Marinoni - Copyright © ' + date.getFullYear() + ' Tutti i diritti sono riservati')
+        });
+
+        function clearDiff() {
+            $("#year_start").val('');
+            $("#month_start").val('');
+            $("#day_start").val('');
+            $("#hour_start").val('');
+            $("#minute_start").val('');
+            $("#second_start").val('');
+
+            $("#year_end").val('');
+            $("#month_end").val('');
+            $("#day_end").val('');
+            $("#hour_end").val('');
+            $("#minute_end").val('');
+            $("#second_end").val('');
+
+            $("#missing_days").html('');
+            $("#not_working_days").html('');
+            $("#working_days").html('');
+            $("#missing_seconds").html('');
+            $("#missing_hours").html('');
+        }
+
+
+
+        function setToday() {
+            let date = new Date();
+            $("#year_start").val(date.getFullYear());
+            $("#month_start").val(date.getMonth() + 1);
+            $("#day_start").val(date.getDate());
+            $("#hour_start").val(date.getHours());
+            $("#minute_start").val(date.getMinutes());
+            $("#second_start").val(date.getSeconds());
+
+            $("#year_end").val(date.getFullYear());
+            $("#month_end").val(date.getMonth() + 1);
+            $("#day_end").val(date.getDate());
+            $("#hour_end").val(date.getHours());
+            $("#minute_end").val(date.getMinutes());
+            $("#second_end").val(date.getSeconds());
+        }
+
+        function isValidField(value) {
+            if (value === '' || value === null || value === undefined) {
+                return false;
+            }
+            return true;
+        }
+
+        function raiseValidationError(fieldName) {
+            alert('The field with name \'' + fieldName + '\' is required!');
+        }
+
+        function containsOnlyNumbers(str) {
+            //return /^[0-9]+$/.test(str);
+        }
+
+        function calculateDiff() {
+
+            let start_yearField = $("#year_start").val();
+            let start_monthField = $("#month_start").val();
+            let start_dayField = $("#day_start").val();
+            let start_hourField = $("#hour_start").val();
+            let start_minuteField = $("#minute_start").val();
+            let start_secondField = $("#second_start").val();
+
+            if (!isValidField(start_yearField)) {
+                raiseValidationError('Start year');
+                return;
+            }
+
+            if (!isValidField(start_monthField)) {
+                raiseValidationError('Start month');
+                return;
+            }
+            if (!isValidField(start_dayField)) {
+                raiseValidationError('Start day');
+                return;
+            }
+
+            let start_year = parseInt(start_yearField);
+            let start_month = parseInt(start_monthField);
+            let start_day = parseInt(start_dayField);
+            let start_hour = parseInt(start_hourField);
+            let start_minute = parseInt(start_minuteField);
+            let start_second = parseInt(start_secondField);
+            //debugger;
+            let dateStart = new Date(start_year, start_month - 1, start_day, start_hour, start_minute, start_second);
+
+            let end_yearField = $("#year_end").val();
+            let end_monthField = $("#month_end").val();
+            let end_dayField = $("#day_end").val();
+            let end_hourField = $("#hour_end").val();
+            let end_minuteField = $("#minute_end").val();
+            let end_secondField = $("#second_end").val();
+            if (!isValidField(end_yearField)) {
+                raiseValidationError('End year');
+                return;
+            }
+            if (!isValidField(end_monthField)) {
+                raiseValidationError('End month');
+                return;
+            }
+            if (!isValidField(end_dayField)) {
+                raiseValidationError('End day');
+                return;
+            }
+
+            let end_year = parseInt(end_yearField);
+            let end_month = parseInt(end_monthField);
+            let end_day = parseInt(end_dayField);
+            let end_hour = parseInt(end_hourField);
+            let end_minute = parseInt(end_minuteField);
+            let end_second = parseInt(end_secondField);
+            let dateEnd = new Date(end_year, end_month - 1, end_day, end_hour, end_minute, end_second);
+
+            if (dateEnd < dateStart) {
+                alert('The end date can\'t be lower than start date!');
+                return;
+            }
+
+            const diffTime = Math.abs(dateEnd - dateStart);
+
+            console.log(diffTime / 1000); //time in seconds
+            console.log((diffTime / 1000) / 3600); //time in hours
+
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            let not_working_days = get_not_working_days_count(dateStart, dateEnd);
+            let working_days = get_working_days_count(dateStart, dateEnd);
+            let missingSeconds = diffTime / 1000;
+            let missingHours = (diffTime / 1000) / 3600;
+
+            $("#missing_days").html('Missing days:' + diffDays);
+            $("#not_working_days").html('Non working days:' + not_working_days);
+            $("#working_days").html('Working days:' + working_days);
+            $("#missing_seconds").html('Working seconds:' + missingSeconds);
+            $("#missing_hours").html('Missing hours:' + missingHours);
+        }
+
+
+        /* Start epoch region*/
+
+        function setEpochToday() {
+            let date = new Date();
+            $("#epoch_year").val(date.getFullYear());
+            $("#epoch_month").val(date.getMonth() + 1);
+            $("#epoch_day").val(date.getDate());
+            $("#epoch_hour").val(date.getHours());
+            $("#epoch_minute").val(date.getMinutes());
+            $("#epoch_second").val(date.getSeconds());
+        }
+
+        function calculateEpoch() {
+
+            let epoch_yearField = $("#epoch_year").val();
+            let epoch_monthField = $("#epoch_month").val();
+            let epoch_dayField = $("#epoch_day").val();
+            let epoch_hourField = $("#epoch_hour").val();
+            let epoch_minuteField = $("#epoch_minute").val();
+            let epoch_secondField = $("#epoch_second").val();
+
+            if (!isValidField(epoch_yearField)) {
+                raiseValidationError('Epoch year');
+                return;
+            }
+            if (!isValidField(epoch_monthField)) {
+                raiseValidationError('Epoch month');
+                return;
+            }
+            if (!isValidField(epoch_dayField)) {
+                raiseValidationError('Epoch day');
+                return;
+            }
+            if (!isValidField(epoch_hourField)) {
+                raiseValidationError('Epoch hour');
+                return;
+            }
+            if (!isValidField(epoch_minuteField)) {
+                raiseValidationError('Epoch minute');
+                return;
+            }
+            if (!isValidField(epoch_secondField)) {
+                raiseValidationError('Epoch second');
+                return;
+            }
+
+            let epoch_year = parseInt(epoch_yearField);
+            let epoch_month = parseInt(epoch_monthField);
+            let epoch_day = parseInt(epoch_dayField);
+            let epoch_hour = parseInt(epoch_hourField);
+            let epoch_minute = parseInt(epoch_minuteField);
+            let epoch_second = parseInt(epoch_secondField);
+
+            let date = new Date(epoch_year, epoch_month - 1, epoch_day,epoch_hour,epoch_minute,epoch_second);
+            let epochs = getEpochs(date);
+            console.log(date);
+            console.log(epochs);
+
+            $("#epoch_result").html('Epochs:' + epochs);
+        }
+
+        function clearDateToEpoch() {
+            $("#epoch_year").val('');
+            $("#epoch_month").val('');
+            $("#epoch_day").val('');
+            $("#epoch_hour").val('');
+            $("#epoch_minute").val('');
+            $("#epoch_second").val('');
+            $("#epoch_result").html('');
+        }
+
+        /* End epoch region*/
+
+
+        /* Start epoch to date region*/
+
+        function setEpochDateToday() {
+            let now = new Date();
+            let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            $("#epoch_date").val(getEpochs(today));
+        }
+
+        function setEpochDateNow() {
+            let date = new Date();
+            $("#epoch_date").val(getEpochs(date));
+        }
+
+        function calculateEpochToDate() {
+            let epoch = $("#epoch_date").val();
+            if (!isValidField(epoch)) {
+                raiseValidationError('Epochs');
+                return;
+            }
+            // The 0 there is the key, which sets the date to the epoch
+            var date = new Date(0);
+            date.setUTCSeconds(epoch);
+            console.log(date);
+
+            $('#epoch_to_date_result').html(date);
+        }
+
+        function clearEpochToDate() {
+            $("#epoch_date").val('');
+            $("#epoch_to_date_result").html('');
+        }
+        /* End epoch to date region*/
+
+        function getEpochs(date) {
+            return parseInt(date.getTime() / 1000);
+        }
+
+        function get_not_working_days_count(startDate, endDate) {
+            let nonBusinessDays = 0;
+            let currentDate = new Date(startDate.getTime());
+            while (currentDate < endDate) {
+                if (currentDate.getDay() == 0 || currentDate.getDay() == 6) nonBusinessDays += 1;
+                currentDate = addDays(currentDate, 1);
+            }
+            console.log('nonBusinessDays:' + nonBusinessDays);
+            return nonBusinessDays;
+        }
+
+        function get_working_days_count(startDate, endDate) {
+
+            var result = 0;
+            let currentDate = new Date(startDate.getTime());
+            while (currentDate <= endDate) {
+                const dayOfWeek = currentDate.getDay();
+                if (dayOfWeek !== 0 && dayOfWeek !== 6) result++;
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+            console.log('businessDays:' + result);
+            return result;
+        }
+
+        function addDays(date, days) {
+            date.setDate(date.getDate() + days);
+            return date;
+        }
+    </script>
+
+</body>
+
+</html>
