@@ -1,1 +1,1 @@
-This tool is used to work with the date and epochs.
+Nothing is required to run the webpage. Open index.html with a browser and use it to work on dates and epochs.
